@@ -3,3 +3,5 @@
 *.zip filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text
 *.jpg filter=lfs diff=lfs merge=lfs -text
+HEART_DATASET/images/**/*.nii.gz filter=lfs diff=lfs merge=lfs -text
+HEART_DATASET/segmentations/**/*.nii.gz filter=lfs diff=lfs merge=lfs -text
