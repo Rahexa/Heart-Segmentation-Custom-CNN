@@ -128,11 +128,11 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# Dataset directories
-HEART_DATASET/
-data/
-dataset/
-datasets/
+# Dataset directories (uncomment if you want to exclude datasets)
+# HEART_DATASET/
+# data/
+# dataset/
+# datasets/
 
 # Model checkpoints and weights
 *.h5
