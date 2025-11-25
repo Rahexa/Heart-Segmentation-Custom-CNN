@@ -8,6 +8,13 @@
 
 This project implements **custom Convolutional Neural Network (CNN) architectures** for heart segmentation from chest X-ray and MRI images. Developed as part of the Neural Networks and Fuzzy Logic course (Spring 2025), this work focuses on building CNNs from scratch without using pre-trained models.
 
+## 🏆 Key Research Contributions
+
+- **Regularization Impact**: Demonstrated that dropout regularization can transform complete segmentation failure (Dice: 0.0253) into functional performance (Dice: 0.6807) - a 2590% improvement
+- **Parameter-Data Ratio Analysis**: Established critical thresholds for model capacity in data-limited medical imaging scenarios (~4,700 parameters per training sample proved excessive)
+- **Systematic Overfitting Study**: Comprehensive analysis of overfitting patterns across 7 different architectural variants
+- **Educational Deep Learning**: Complete implementation from fundamental principles without transfer learning
+
 ## 🎯 Objectives
 
 - **Custom Architecture Development**: Build fully custom CNN models without relying on pre-built architectures (ResNet, VGG, etc.)
@@ -64,23 +71,27 @@ HEART_DATASET/
 ```
 Heart-Segmentation-Custom-CNN/
 ├── Heart_Segmentation_Custom_CNN.ipynb    # Main notebook with all implementations
-├── 1128,1100,1110.pdf                     # Project documentation
-├── README.md                               # This file
-└── .gitignore                             # Git ignore rules
+├── train.py                               # Standalone training script
+├── inference.py                           # Model inference script
+├── requirements.txt                       # Python dependencies
+├── REPRODUCTION_GUIDE.md                  # Detailed reproduction instructions
+├── demo/                                  # Demo files for quick verification
+│   ├── sample_input.npy                   # Sample input image
+│   ├── sample_ground_truth.npy            # Sample ground truth mask
+│   ├── sample_prediction.npy              # Expected model output
+│   ├── demo_metrics.json                  # Performance metrics
+│   └── README.md                          # Demo documentation
+├── models/                                # Trained model weights (created during training)
+├── results/                               # Training results and visualizations
+├── HEART_DATASET/                         # Dataset directory (user provided)
+├── Heart_Segmentation_Complete_Report.tex # Complete LaTeX research report
+├── 1128,1100,1110.pdf                    # Original project documentation
+└── README.md                              # This file
 ```
 
 ## 🚀 Getting Started
 
-### Prerequisites
-
-```bash
-pip install tensorflow>=2.0
-pip install numpy matplotlib
-pip install nibabel
-pip install google-colab  # If running on Colab
-```
-
-### Usage
+### Quick Setup
 
 1. **Clone the repository**:
    ```bash
@@ -88,15 +99,40 @@ pip install google-colab  # If running on Colab
    cd Heart-Segmentation-Custom-CNN
    ```
 
-2. **Open the notebook**:
-   - For Google Colab: Upload `Heart_Segmentation_Custom_CNN.ipynb`
-   - For Jupyter: Run `jupyter notebook Heart_Segmentation_Custom_CNN.ipynb`
-
-3. **Mount your dataset** (if using Colab):
-   ```python
-   from google.colab import drive
-   drive.mount('/content/drive')
+2. **Install dependencies**:
+   ```bash
+   pip install -r requirements.txt
    ```
+
+3. **Quick demo verification**:
+   ```bash
+   python -c "import numpy as np; print('Demo input shape:', np.load('demo/sample_input.npy').shape)"
+   ```
+
+### Training Options
+
+#### Option 1: Jupyter Notebook (Recommended)
+- Upload `Heart_Segmentation_Custom_CNN.ipynb` to Google Colab
+- Follow the comprehensive experimental pipeline
+- All visualizations and analyses included
+
+#### Option 2: Standalone Training Script
+```bash
+# Train specific experiment
+python train.py --experiment dropout --epochs 20
+
+# Train all experiments
+python train.py --experiment all
+
+# Custom configuration
+python train.py --experiment extra_conv --batch_size 4 --learning_rate 1e-3
+```
+
+#### Option 3: Model Inference Only
+```bash
+# Run inference on new images
+python inference.py --input_path path/to/image.nii.gz --model_path models/best_model.h5
+```
 
 4. **Update dataset path** in the notebook to your dataset location
 
